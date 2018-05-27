@@ -5,6 +5,7 @@
         js调用java
     </title>
 </head>
+
 <body>
 <p>
     <xmp id="show">
@@ -18,6 +19,7 @@
 </div>
 </body>
 <script>
+
     function getUserInfo(){
         window.WebViewJavascriptBridge.callHandler(
             'getUserInfo',
@@ -27,5 +29,13 @@
             }
         )
     }
+
+    bridge.registerHandler("functionInJs", function(data, responseCallback) {
+                document.getElementById("show").innerHTML = ("data from Java: = " + data);
+                var responseData = "Javascript Says Right back aka!";
+                responseCallback(responseData);
+            });
+
 </script>
+
 </html>

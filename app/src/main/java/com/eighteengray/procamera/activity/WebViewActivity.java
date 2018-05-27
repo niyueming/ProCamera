@@ -2,6 +2,7 @@ package com.eighteengray.procamera.activity;
 
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.eighteengray.procamera.R;
@@ -23,10 +24,30 @@ public class WebViewActivity extends BaseActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResId());
+        initCommonTitle();
         bridgeWebView = (BridgeWebView) findViewById(R.id.bridge_web_view);
         bridgeWebView.setDefaultHandler(new DefaultHandler());
-        bridgeWebView.loadUrl("file:///android_asset/TestJsBridge.html");
+        bridgeWebView.loadUrl("file:///android_asset/demo.html");
+
+        // 注册Handler，等待JS调用
         registerHandler();
+
+        btn_right.setVisibility(View.VISIBLE);
+        btn_right.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                bridgeWebView.callHandler("functionInJs", "sss", new CallBackFunction()
+                {
+                    @Override
+                    public void onCallBack(String data)
+                    {
+                        Toast.makeText(WebViewActivity.this, data, Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
     }
 
     @Override

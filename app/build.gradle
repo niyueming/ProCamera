@@ -19,6 +19,13 @@ android {
     }
 }
 
+apply plugin: 'replugin-plugin-gradle'
+repluginPluginConfig {
+    pluginName = "procamera"
+    hostApplicationId = "com.eighteengray.procameraalbum"
+    hostAppLauncherActivity = "com.eighteengray.procameraalbum.MainActivity"
+}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':procameralibrary')
@@ -63,4 +70,7 @@ dependencies {
 
     // 控件库
     compile "com.github.rey5137:material:$rootProject.ext.materialVersion"
+
+    // 插件
+    compile 'com.qihoo360.replugin:replugin-plugin-lib:2.2.4'
 }
